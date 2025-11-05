@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ha">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Old Posts Data</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+    font-family: sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h2, h3 {
+    color: #007bff;
+    text-align: center;
+}
+
+#login-container, #clear-data-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin-top: 50px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="email"], input[type="password"], button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #a0c3e8;
+    cursor: not-allowed;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.button-group button {
+    flex-grow: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.message {
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#login-message {
+    background-color: #ffeeba;
+    color: #856404;
+}
+
+#status-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    font-weight: bold;
+}
+
+.results-box {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background-color: #e9f5ff;
+}
+
+.current-user-info {
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.action-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+    </style>
+</head>
+<body>
+
+    <div id="login-container">
+        <h2>Shiga don Goge Bayanai</h2>
+        <form id="login-form">
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <button type="submit" id="login-button">Shiga</button>
+            <p id="login-message" class="message"></p>
+        </form>
+    </div>
+
+    <div id="clear-data-container" class="hidden">
+        <div class="header">
+            <h2>Goge Tsoffin Postings</h2>
+            <button id="logout-button">Fita</button>
+        </div>
+        
+        <p class="current-user-info">Kana Shiga a matsayin: <strong id="user-email-display"></strong></p>
+
+        <div class="action-section">
+            <h3>Zaɓi Lokacin Goge Postings</h3>
+            
+            <div class="button-group">
+                <button id="clear-30-days" data-days="30">Goge Tsohon Post na Kwana 30</button>
+                <button id="clear-60-days" data-days="60">Goge Tsohon Post na Kwana 60</button>
+            </div>
+            
+            <p id="status-message" class="message"></p>
+
+            <div id="results-display" class="results-box">
+                <p>An samu nasarar goge Postings: <strong id="success-count">0</strong></p>
+                <p>Adadin Postings da aka duba: <strong id="total-checked">0</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+       import { app } from './firebase.js';
+
+import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getDatabase, ref, get, remove } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+const loginContainer = document.getElementById('login-container');
+const clearDataContainer = document.getElementById('clear-data-container');
+const loginForm = document.getElementById('login-form');
+const loginEmailInput = document.getElementById('login-email');
+const loginPasswordInput = document.getElementById('login-password');
+const loginMessage = document.getElementById('login-message');
+const logoutButton = document.getElementById('logout-button');
+const userEmailDisplay = document.getElementById('user-email-display');
+const statusMessage = document.getElementById('status-message');
+const clear30DaysButton = document.getElementById('clear-30-days');
+const clear60DaysButton = document.getElementById('clear-60-days');
+const allButtons = [clear30DaysButton, clear60DaysButton];
+const successCountDisplay = document.getElementById('success-count');
+const totalCheckedDisplay = document.getElementById('total-checked');
+const resultsDisplay = document.getElementById('results-display');
+
+let isProcessing = false;
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        loginContainer.classList.add('hidden');
+        clearDataContainer.classList.remove('hidden');
+        userEmailDisplay.textContent = user.email;
+        statusMessage.textContent = 'Kana shiga. Zabi lokacin da kake son gogewa.';
+        resetResults();
+    } else {
+        loginContainer.classList.remove('hidden');
+        clearDataContainer.classList.add('hidden');
+        loginMessage.textContent = '';
+        loginForm.reset();
+    }
+});
+
+
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = loginEmailInput.value;
+    const password = loginPasswordInput.value;
+    loginMessage.textContent = 'Ana Shiga...';
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+     
+    } catch (error) {
+        console.error("Login Error:", error.message);
+        loginMessage.textContent = `Kuskuren shiga: ${error.code}`;
+    }
+});
+
+
+logoutButton.addEventListener('click', async () => {
+    try {
+        await signOut(auth);
+    } catch (error) {
+        console.error("Logout Error:", error.message);
+        alert('Gagara fita. Kuskure: ' + error.message);
+    }
+});
+
+
+async function clearOldPosts(days) {
+    if (isProcessing) return;
+    
+    isProcessing = true;
+    allButtons.forEach(btn => btn.disabled = true);
+    
+    statusMessage.textContent = `Ana farawa goge tsoffin postings na kwana ${days}...`;
+    resetResults();
+    resultsDisplay.classList.remove('hidden');
+
+    const cutoffTime = new Date();
+    cutoffTime.setDate(cutoffTime.getDate() - days);
+    const cutoffISO = cutoffTime.toISOString();
+    
+    let deletedCount = 0;
+    let totalChecked = 0;
+
+    try {        
+        const usersRef = ref(db, 'users');
+        const usersSnapshot = await get(usersRef);
+
+        if (usersSnapshot.exists()) {
+            const usersData = usersSnapshot.val();
+            const userUids = Object.keys(usersData);
+
+            for (const uid of userUids) {
+                const postsRef = ref(db, `users/${uid}/Posting`);
+                const postsSnapshot = await get(postsRef);
+
+                if (postsSnapshot.exists()) {
+                    const postsData = postsSnapshot.val();
+                    const postIds = Object.keys(postsData);
+
+                    for (const postId of postIds) {
+                        totalChecked++;
+                        const postTime = postsData[postId].postingTime; 
+                        
+                        if (postTime && postTime < cutoffISO) {
+                            const postToDeleteRef = ref(db, `users/${uid}/Posting/${postId}`);
+                            await remove(postToDeleteRef);
+                            deletedCount++;
+                            statusMessage.textContent = `An goge ${deletedCount} posts... (Ana dubawa...)`;
+                        }
+                        totalCheckedDisplay.textContent = totalChecked;
+                        successCountDisplay.textContent = deletedCount;
+                    }
+                }
+            }
+            
+            statusMessage.textContent = `Aiki ya Kammala! An samu nasarar goge ${deletedCount} posts. An duba ${totalChecked} posts gaba daya.`;
+        } else {
+            statusMessage.textContent = 'Babu Users da aka samu a database.';
+        }
+
+    } catch (error) {
+        console.error("Kuskuren Goge Bayanai:", error);
+        statusMessage.textContent = `Gagara gogewa: ${error.message}. Kuskure ya faru.`;
+    } finally {
+        isProcessing = false;
+        allButtons.forEach(btn => btn.disabled = false);
+    }
+}
+
+
+function resetResults() {
+    successCountDisplay.textContent = 0;
+    totalCheckedDisplay.textContent = 0;
+    statusMessage.textContent = 'Zabi lokacin da kake son gogewa.';
+    resultsDisplay.classList.add('hidden');
+}
+
+
+clear30DaysButton.addEventListener('click', () => clearOldPosts(30));
+clear60DaysButton.addEventListener('click', () => clearOldPosts(60));
+    </script>
+    
+</body>
+</html>
