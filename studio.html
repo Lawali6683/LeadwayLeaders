@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TauraronWasa Studio</title>
-    
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
- 
-    
+    <title>LPFHRA Studio</title>        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">   
     <style>
         
         :root {
@@ -650,42 +646,41 @@ body {
 </head>
 <body>
 
-   <div class="container">
-    
+    <div class="container">
+      
     <div id="nameInputSection" class="name-input-section">
-        <img src="https://i.imgur.com/lwddsvh.png" alt="LPFHRA Logo" class="logo-large">
-        <h2>Enter Your Full Name</h2>
-        <input type="text" id="fullNameInput" placeholder="Full Name">
-        <button id="submitNameBtn">Submit</button>
+        <img src="https://i.imgur.com/lwddsvh.png" alt=" Logo" class="logo-large">
+        <h2>input your full name </h2>
+        <input type="text" id="fullNameInput" placeholder="Full Name ">
+        <button id="submitNameBtn">Submit </button>
     </div>
     
-    
-    
+   
     <main id="mainStudio" class="main-studio" style="display: none;">
         
         <header class="header">
-            <img src="https://i.imgur.com/lwddsvh.png" alt="LPFHRA Logo" class="logo">
+            <img src="https://i.imgur.com/lwddsvh.png" alt=" Logo" class="logo">
             <div class="welcome-info">
                 <p>LPFHRA, Special Presenter <span id="displayName"></span>,</p>
-                <p>Today's Date is <span id="currentDate"></span></p>
+                <p>Today is <span id="currentDate"></span></p>
             </div>
         </header>
-        
         
         
         <div class="recorder-section">
             
             <div class="record-button-container">
                 <button id="recordToggleBtn" class="record-toggle-btn">
-                    
+                 
                     <i id="recordToggleIcon" class="fas fa-microphone"></i>
                 </button>
                 <div class="recording-indicator"></div>
             </div>
-            
-            <button id="stopRecordingBtn" class="stop-record-btn" title="Stop Recording Entirely">
+         
+            <button id="stopRecordingBtn" class="stop-record-btn" title="Stop Recording Completely">
                 <i class="fas fa-stop"></i>
             </button>
+
             <div class="waveform-display">
                 <canvas id="audioVisualizer"></canvas>
                 <div class="time-display">
@@ -695,8 +690,6 @@ body {
             
             <div class="playback-controls">
                 <button id="playbackToggleBtn" class="playback-toggle-btn disabled">
-                    
-                    
                     <i id="playbackToggleIcon" class="fas fa-play"></i>
                 </button>
                 <div class="playback-progress-bar">
@@ -704,39 +697,33 @@ body {
                 </div>
             </div>
             
-            
-            
-            
             <audio id="recordedAudio" style="display: none;"></audio>
         </div>
         
-        
-        
+      
         
         <div class="audio-tools-menu">
-            <button id="uploadAudio1Btn" title="Load First Audio"><i class="fas fa-file-upload"></i></button>
-            <button id="uploadAudio2Btn" title="Load Second Audio"><i class="fas fa-file-upload"></i></button>
-            <button id="processAudioBtn" title="Process Audio (Noise Reduction/AGC)"><i class="fas fa-magic"></i></button>
+            <button id="uploadAudio1Btn" title="Upload First Audio"><i class="fas fa-file-upload"></i></button>
+            <button id="uploadAudio2Btn" title="Upload Second Audio"><i class="fas fa-file-upload"></i></button>
+            <button id="processAudioBtn" title="Filter Audio (Noise Reduction/AGC)"><i class="fas fa-magic"></i></button>
             <button id="connectMicBtn" title="Connect External Microphone"><i class="fas fa-microphone-alt"></i></button>
             <button id="volumeControlBtn" title="Set Volume"><i class="fas fa-volume-up"></i></button>
             <button id="speedControlBtn" title="Set Audio Speed"><i class="fas fa-tachometer-alt"></i></button>
             <button id="downloadAudioBtn" title="Download Audio"><i class="fas fa-download"></i></button>
         </div>
         
-        
-        
+       
         <div class="uploaded-audio-display" id="uploadedAudioDisplay">
-            <p>No audio uploaded.</p>
+             <p>No audio has been uploaded.</p>
         </div>
         
-        
-        
+      
         <div class="text-editor-container">
             <textarea id="reportTextarea" placeholder="Write Your Report Here..."></textarea>
         </div>
         
-        
-        <button id="updateButton" class="update-btn">Clear All Activity Data</button>
+   
+        <button id="updateButton" class="update-btn">Clear All Work Data</button>
     </main>
 </div>
 
@@ -755,6 +742,7 @@ body {
         <button id="saveVolumeBtn">Save</button>
     </div>
 </div>
+
 <div id="speedModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -763,29 +751,31 @@ body {
         <button id="saveSpeedBtn">Save</button>
     </div>
 </div>
+
 <div id="downloadModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <h2>Download Audio</h2>
-        
         <input type="text" id="downloadFileNameInput" placeholder="File Name...">
         <button id="confirmDownloadBtn">Download</button>
     </div>
 </div>
+
 <div id="micConnectModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
         <h2>Connect Microphone</h2>
-        <p>Select microphone from the list:</p>
+        <p>Select a microphone from the list:</p>
         <select id="microphoneSelect"></select>
         <button id="selectMicBtn">Connect</button>
     </div>
 </div>
+
     
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', () => {
     
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
     const nameInputSection = document.getElementById('nameInputSection');
     const fullNameInput = document.getElementById('fullNameInput');
     const submitNameBtn = document.getElementById('submitNameBtn');
@@ -828,7 +818,7 @@ body {
     const notificationMessage = document.getElementById('notificationMessage');
     const closeNotificationBtn = pushNotification.querySelector('.close-notification');
     const updateButton = document.getElementById('updateButton');
-    
+
     let audioContext = null;
     let analyser;
     let dataArray;
@@ -843,13 +833,13 @@ body {
     let isRecording = false;
     let isPaused = false;
     let recordedBlob = null;
-    let isPlaying = false;
-    let uploadedAudioItems = [];
-    let currentUploadedAudioSource = null;
+    let isPlaying = false;   
+    let uploadedAudioItems = [];    
+    let currentUploadedAudioSource = { node: null, item: null, startedAt: 0, offset: 0 }; 
     let canvasCtx;
-    
-    const varPrimaryColor = getComputedStyle(document.body).getPropertyValue('--primary-color').trim() || '#ff6f61';
 
+    const varPrimaryColor = getComputedStyle(document.body).getPropertyValue('--primary-color').trim() || '#ff6f61';
+    
     function showNotification(message, type = 'success') {
         notificationMessage.textContent = message;
         pushNotification.className = `push-notification ${type}`;
@@ -858,65 +848,56 @@ body {
             pushNotification.style.display = 'none';
         }, 5000);
     }
-
+    
     function closeModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
             modal.style.display = 'none';
         }
     }
-
-  
-function updateDateTime() {
+    
+   function updateDateTime() {
     const now = new Date();
-    
-   
     const daysEnglish = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const monthsEnglish = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    
+    const monthsEnglish = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
     const dayName = daysEnglish[now.getDay()];
     const monthName = monthsEnglish[now.getMonth()];
     const dayOfMonth = now.getDate();
     const year = now.getFullYear();
-    
     let hours = now.getHours();
     let minutes = now.getMinutes();
     let ampm = hours >= 12 ? 'PM' : 'AM';
-    
-    
     hours = hours % 12;
-    hours = hours ? hours : 12; 
-    
-    
-   
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
     const formattedDate = `${dayName}, ${monthName} ${dayOfMonth}, ${year}, ${hours}:${minutes} ${ampm}`;
-    
-    
     if (currentDateSpan) currentDateSpan.textContent = formattedDate;
 }
-
 
 function saveToLocalStorage(key, value) {
     try {
         localStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {       
-        showNotification("Error: Could not save data. Is storage full?", "error");
+    } catch (e) {
+        showNotification("Error: Unable to save data. Storage might be full.", "error");
     }
 }
 
-    function getFromLocalStorage(key) {
-        try {
-            const data = localStorage.getItem(key);
-            return data ? JSON.parse(data) : null;
-        } catch (e) {
-            return null;
-        }
+function getFromLocalStorage(key) {
+    try {
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : null;
+    } catch (e) {
+        return null;
     }
+}
 
     function deleteFromLocalStorage(key) {
         localStorage.removeItem(key);
     }
-
+    
     function initializeUser() {
         const storedFullName = getFromLocalStorage('tauraronWasa_fullName');
         if (storedFullName) {
@@ -931,7 +912,7 @@ function saveToLocalStorage(key, value) {
         updateDateTime();
         setInterval(updateDateTime, 60000);
     }
-
+    
     if (submitNameBtn) {
         submitNameBtn.addEventListener('click', () => {
             const fullName = fullNameInput.value.trim();
@@ -940,14 +921,13 @@ function saveToLocalStorage(key, value) {
                 initializeUser();
                 showNotification(`Barka da zuwa, ${fullName}!`);
             } else {
-                showNotification("Don Allah shigar da cikakken sunanka.", "error");
+              showNotification("Please enter your full name.", "error");
             }
         });
     }
-
+    
     function draw() {
         if (!analyser || (!isRecording && !isPaused) || !canvasCtx) return;
-
         requestAnimationFrame(draw);
         analyser.getByteTimeDomainData(dataArray);
         
@@ -975,7 +955,7 @@ function saveToLocalStorage(key, value) {
         canvasCtx.lineTo(audioVisualizerCanvas.width, audioVisualizerCanvas.height / 2);
         canvasCtx.stroke();
     }
-
+    
     async function initializeAudioContext() {
         if (!audioContext || audioContext.state === 'closed') {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -984,74 +964,83 @@ function saveToLocalStorage(key, value) {
             await audioContext.resume();
         }
     }
-
+    
     async function startRecording() {
         try {
             await initializeAudioContext();
             
             const preferredMicId = getFromLocalStorage('tauraronWasa_preferredMicId');
+            
             const constraints = {
                 audio: {
                     deviceId: preferredMicId ? { exact: preferredMicId } : undefined,
                     noiseSuppression: true,
                     echoCancellation: true,
-                    autoGainControl: false
+                    autoGainControl: false, 
+                    sampleRate: 48000 
                 }
             };
-
+            
             micStream = await navigator.mediaDevices.getUserMedia(constraints);
             
             const micSource = audioContext.createMediaStreamSource(micStream);
             
             gainNode = audioContext.createGain();
-            gainNode.gain.value = 1.5;
-
+            gainNode.gain.value = 2.5; 
+            
             analyser = audioContext.createAnalyser();
             analyser.fftSize = 2048;
             bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
             
+            const highPassFilter = audioContext.createBiquadFilter();
+            highPassFilter.type = "highpass";
+            highPassFilter.frequency.setValueAtTime(80, audioContext.currentTime);
+            highPassFilter.Q.setValueAtTime(0.707, audioContext.currentTime);
+            
             const destination = audioContext.createMediaStreamDestination();
             
             micSource.connect(gainNode);
-            gainNode.connect(analyser);
-            gainNode.connect(destination);
-
+            gainNode.connect(highPassFilter); 
+            highPassFilter.connect(analyser);
+            highPassFilter.connect(destination);
+            
             let mimeType = 'audio/webm; codecs=opus';
             if (MediaRecorder.isTypeSupported('audio/mp4; codecs=aac')) {
                 mimeType = 'audio/mp4; codecs=aac';
             } else if (MediaRecorder.isTypeSupported('audio/m4a; codecs=aac')) {
                 mimeType = 'audio/m4a; codecs=aac';
-            } else if (MediaRecorder.isTypeSupported('audio/mpeg')) {
-                 mimeType = 'audio/mpeg';
             }
-
+            
             mediaRecorder = new MediaRecorder(destination.stream, { mimeType: mimeType });
-            audioChunks = [];
 
+            audioChunks = [];
+            
             mediaRecorder.ondataavailable = event => {
                 if (event.data.size > 0) {
                     audioChunks.push(event.data);
                 }
             };
-
+            
             mediaRecorder.onstop = () => {
                 stopMicrophoneStream();
                 
-                if (audioChunks.length > 0) {
+                const totalSize = audioChunks.reduce((acc, chunk) => acc + chunk.size, 0);
+                
+                if (totalSize > 1024) { 
                     const finalMimeType = mediaRecorder.mimeType || mimeType;
                     recordedBlob = new Blob(audioChunks, { type: finalMimeType });
                     recordedAudio.src = URL.createObjectURL(recordedBlob);
                     savePersistentData();
-                    showNotification("An kammala daukar sauti. Za ka iya kunnawa.", "success");
+                    showNotification("Recording completed. You can now play it.", "success");
                 } else {
                     recordedBlob = null;
-                    showNotification("Babu sauti da aka dauka.", "error");
+                    showNotification("No audio has been recorded.", "error");
                 }
                 
                 resetRecordingState();
             };
-
+            
             mediaRecorder.start(100);
             
             isRecording = true;
@@ -1068,7 +1057,7 @@ function saveToLocalStorage(key, value) {
             totalTime = 0;
             timerInterval = setInterval(updateRecordTimer, 1000);
             draw();
-            showNotification("An fara daukar sauti...", "info");
+            showNotification("Recording has started...", "info");
             
         } catch (err) {
             console.error(err);
@@ -1077,7 +1066,7 @@ function saveToLocalStorage(key, value) {
             resetRecordingState();
         }
     }
-
+    
     function pauseRecording() {
         if (mediaRecorder && mediaRecorder.state === 'recording') {
             mediaRecorder.pause();
@@ -1087,10 +1076,10 @@ function saveToLocalStorage(key, value) {
             recordingIndicator.classList.remove('active');
             clearInterval(timerInterval);
             totalTime += (Date.now() - startTime);
-            showNotification("An dakatar da daukar sauti.", "info");
+            showNotification("Recording has been paused.", "info");
         }
     }
-
+    
     function resumeRecording() {
         if (mediaRecorder && mediaRecorder.state === 'paused') {
             mediaRecorder.resume();
@@ -1102,17 +1091,17 @@ function saveToLocalStorage(key, value) {
             startTime = Date.now();
             timerInterval = setInterval(updateRecordTimer, 1000);
             draw();
-            showNotification("An ci gaba da daukar sauti.", "info");
+            showNotification("Recording has resumed.", "info");
         }
     }
-
+    
     function stopFinalRecording() {
         if (mediaRecorder && mediaRecorder.state !== 'inactive') {
             mediaRecorder.stop();
         }
         resetRecordingState();
     }
-
+    
     function stopMicrophoneStream() {
         if (micStream) {
             micStream.getTracks().forEach(track => track.stop());
@@ -1127,7 +1116,7 @@ function saveToLocalStorage(key, value) {
             analyser = null;
         }
     }
-
+    
     function resetRecordingState() {
         isRecording = false;
         isPaused = false;
@@ -1137,7 +1126,7 @@ function saveToLocalStorage(key, value) {
         recordingIndicator.classList.remove('active');
         if(stopRecordingBtn) stopRecordingBtn.disabled = true;
 
-        if (recordedBlob) {
+        if (recordedBlob && recordedBlob.size > 1024) {
             playbackToggleBtn.classList.remove('disabled');
             playbackToggleBtn.disabled = false;
         } else {
@@ -1154,7 +1143,7 @@ function saveToLocalStorage(key, value) {
              canvasCtx.fillRect(0, 0, audioVisualizerCanvas.width, audioVisualizerCanvas.height);
         }
     }
-
+    
     function updateRecordTimer() {
         const elapsedTime = totalTime + (isPaused ? 0 : (Date.now() - startTime));
         const totalSeconds = Math.floor(elapsedTime / 1000);
@@ -1163,7 +1152,7 @@ function saveToLocalStorage(key, value) {
         const seconds = String(totalSeconds % 60).padStart(2, '0');
         recordTimerSpan.textContent = `${hours}:${minutes}:${seconds}`;
     }
-
+    
     if (recordToggleBtn) {
         recordToggleBtn.addEventListener('click', () => {
             if (!isRecording && !isPaused) {
@@ -1175,7 +1164,7 @@ function saveToLocalStorage(key, value) {
             }
         });
     }
-
+    
     if (stopRecordingBtn) {
         stopRecordingBtn.addEventListener('click', () => {
             if (isRecording || isPaused) {
@@ -1183,9 +1172,11 @@ function saveToLocalStorage(key, value) {
             }
         });
     }
-    
+
     if (recordedAudio) {
-        recordedAudio.volume = getFromLocalStorage('tauraronWasa_volume') || 1;
+        const initialVolume = getFromLocalStorage('tauraronWasa_volume') || 1;
+        recordedAudio.volume = Math.min(1.0, parseFloat(initialVolume)); 
+
         recordedAudio.playbackRate = getFromLocalStorage('tauraronWasa_speed') || 1;
 
         recordedAudio.addEventListener('ended', () => {
@@ -1202,11 +1193,11 @@ function saveToLocalStorage(key, value) {
             }
         });
     }
-
+    
     if (playbackToggleBtn) {
         playbackToggleBtn.addEventListener('click', () => {
-            if (!recordedBlob) {
-                showNotification("Babu wani sauti da aka ɗauka don kunnawa.", "error");
+            if (!recordedBlob || recordedBlob.size <= 1024) {
+                showNotification("No recorded audio available for playback.", "error");                
                 return;
             }
             if (isPlaying) {
@@ -1215,14 +1206,14 @@ function saveToLocalStorage(key, value) {
                 playbackToggleIcon.className = 'fas fa-play';
             } else {
                 recordedAudio.play().catch(e => {
-                    showNotification("Kuskure wajen kunnawa.", "error");
+                    showNotification("Playback error. (The browser may have blocked it)", "error");                   
                 });
                 isPlaying = true;
                 playbackToggleIcon.className = 'fas fa-pause';
             }
         });
     }
-
+    
     if (playbackProgressBar) {
         playbackProgressBar.addEventListener('click', (e) => {
             if (!recordedBlob || !recordedAudio || recordedAudio.duration === 0) return;
@@ -1242,78 +1233,127 @@ function saveToLocalStorage(key, value) {
         const file = event.target.files[0];
         if (file && file.type.startsWith('audio/')) {
             const reader = new FileReader();
-            reader.onload = async (e) => {
+            reader.onload = async (e) => {                
+                await initializeAudioContext();
+                const arrayBuffer = await file.arrayBuffer();
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
                 const dataUrl = e.target.result;
                 const audioBlob = await fetch(dataUrl).then(res => res.blob());
-                uploadedAudioItems.push({ dataUrl, name: file.name, blob: audioBlob });
+                
+                uploadedAudioItems.push({ 
+                    dataUrl, 
+                    name: file.name, 
+                    blob: audioBlob,
+                    buffer: audioBuffer, 
+                    playbackTime: 0, 
+                    isPlaying: false 
+                });
+                
                 renderUploadedAudio();
                 savePersistentData();
                 showNotification(`An loda audio "${file.name}"`);
             };
             reader.readAsDataURL(file);
         } else {
-            showNotification("Don Allah zaɓi fayil ɗin audio mai inganci.", "error");
+            showNotification("Please select a valid audio file.", "error");
         }
+    }
+    
+    function stopCurrentUploadedAudio() {
+        if (currentUploadedAudioSource.node) {            
+            const elapsedTime = audioContext.currentTime - currentUploadedAudioSource.startedAt;
+            const newPlaybackTime = currentUploadedAudioSource.offset + elapsedTime;
+                        
+            if (currentUploadedAudioSource.item) {
+                currentUploadedAudioSource.item.playbackTime = newPlaybackTime;
+                currentUploadedAudioSource.item.isPlaying = false;
+            }
+            
+            currentUploadedAudioSource.node.stop();
+            currentUploadedAudioSource.node.disconnect();
+            
+            currentUploadedAudioSource = { node: null, item: null, startedAt: 0, offset: 0 };
+        }
+               document.querySelectorAll('.uploaded-audio-item .play-btn').forEach(btn => {
+            btn.innerHTML = '<i class="fas fa-play"></i> Kunna';
+        });
     }
 
     async function playUploadedAudio(item, button) {
-        if (currentUploadedAudioSource) {
-            currentUploadedAudioSource.stop();
-            currentUploadedAudioSource.disconnect();
-            currentUploadedAudioSource = null;
-            document.querySelectorAll('.uploaded-audio-item .play-btn').forEach(btn => {
-                btn.innerHTML = '<i class="fas fa-play"></i> Kunna';
-            });
-        }
         
-        if (button.textContent.includes("Dakatar")) {
-            button.innerHTML = '<i class="fas fa-play"></i> Kunna';
-            showNotification("An dakatar da kunnawa.", "info");
+        const isCurrentlyPlaying = item.isPlaying;        
+        
+        stopCurrentUploadedAudio();         
+        
+        if (isCurrentlyPlaying) {             
+          showNotification("Playback has been paused.", "info");
             return;
         }
 
+        
         try {
             await initializeAudioContext();
-            const arrayBuffer = await item.blob.arrayBuffer();
-            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
             
             const source = audioContext.createBufferSource();
-            source.buffer = audioBuffer;
+            source.buffer = item.buffer;
             source.playbackRate.value = recordedAudio.playbackRate;
             
             source.connect(audioContext.destination);
             
-            source.start(0);
-            currentUploadedAudioSource = source;
-            
-            button.innerHTML = '<i class="fas fa-stop"></i> Dakatar';
+            const offset = item.playbackTime % item.buffer.duration;
+            const duration = item.buffer.duration - offset;
+
+            source.start(0, offset, duration);
+                      
+            currentUploadedAudioSource.node = source;
+            currentUploadedAudioSource.item = item;
+            currentUploadedAudioSource.startedAt = audioContext.currentTime;
+            currentUploadedAudioSource.offset = offset;
+
+            item.isPlaying = true;
+            button.innerHTML = '<i class="fas fa-pause"></i> Dakatar';
             showNotification(`Ana kunnawa: ${item.name}`, "info");
-            
+                      
             source.onended = () => {
-                if (currentUploadedAudioSource === source) {
-                    currentUploadedAudioSource = null;
+                if (currentUploadedAudioSource.node === source) {
+                    
+                    item.playbackTime = 0;
+                    item.isPlaying = false;
+                    currentUploadedAudioSource = { node: null, item: null, startedAt: 0, offset: 0 };
+                                       
                     button.innerHTML = '<i class="fas fa-play"></i> Kunna';
+                    showNotification(`An kammala kunnawa: ${item.name}`, "info");
                 }
             };
+            
         } catch (error) {
-            showNotification(`Kuskure wajen kunnawa audio: ${error.message}`, "error");
+            console.error(error);            
+            stopCurrentUploadedAudio();
+            item.playbackTime = 0;
+            item.isPlaying = false;
             button.innerHTML = '<i class="fas fa-play"></i> Kunna';
+            showNotification(`Kuskure wajen kunnawa audio: ${error.message}`, "error");
         }
     }
-
+    
     function renderUploadedAudio() {
         uploadedAudioDisplay.innerHTML = '';
         if (uploadedAudioItems.length === 0) {
-            uploadedAudioDisplay.innerHTML = '<p>Babu audio da aka loda.</p>';
+            uploadedAudioDisplay.innerHTML = '<p>Not uploading audio .</p>';
             return;
         }
         
         uploadedAudioItems.forEach((item, index) => {
             const audioItemDiv = document.createElement('div');
             audioItemDiv.className = 'uploaded-audio-item';
+                        
+            const buttonIcon = item.isPlaying ? 'fas fa-pause' : 'fas fa-play';
+            const buttonText = item.isPlaying ? 'stop' : 'play';
+
             audioItemDiv.innerHTML = `
                 <p title="${item.name}">${item.name}</p>
-                <button class="play-btn" data-index="${index}"><i class="fas fa-play"></i> Kunna</button>
+                <button class="play-btn" data-index="${index}"><i class="${buttonIcon}"></i> ${buttonText}</button>
                 <button class="remove-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
             `;
             uploadedAudioDisplay.appendChild(audioItemDiv);
@@ -1329,18 +1369,20 @@ function saveToLocalStorage(key, value) {
         uploadedAudioDisplay.querySelectorAll('.remove-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const index = parseInt(e.currentTarget.dataset.index);
-                if (currentUploadedAudioSource && uploadedAudioItems[index] === currentUploadedAudioSource.item) {
-                    currentUploadedAudioSource.stop();
-                    currentUploadedAudioSource = null;
+                const itemToRemove = uploadedAudioItems[index];
+              
+                if (currentUploadedAudioSource.item && itemToRemove.name === currentUploadedAudioSource.item.name) {
+                    stopCurrentUploadedAudio();
                 }
+                
                 uploadedAudioItems.splice(index, 1);
                 renderUploadedAudio();
                 savePersistentData();
-                showNotification("An goge audio.", "success");
+                showNotification("Deleted audio.", "success");
             });
         });
     }
-
+    
     if (uploadAudioBtn1) {
         uploadAudioBtn1.addEventListener('click', () => {
             const input = document.createElement('input');
@@ -1350,7 +1392,7 @@ function saveToLocalStorage(key, value) {
             input.click();
         });
     }
-
+    
     if (uploadAudioBtn2) {
         uploadAudioBtn2.addEventListener('click', () => {
             const input = document.createElement('input');
@@ -1360,14 +1402,15 @@ function saveToLocalStorage(key, value) {
             input.click();
         });
     }
-
+    
     if (processAudioBtn) {
         processAudioBtn.addEventListener('click', async () => {
-            if (!recordedBlob) {
-                showNotification("Babu sauti da aka ɗauka don tacewa.", "error");
-                return;
-            }
-            showNotification("Ana tacewa da inganta sauti...", "info");
+            if (!recordedBlob || recordedBlob.size <= 1024) {
+               showNotification("No recorded audio available for processing.", "error");
+return;
+}
+showNotification("Processing and enhancing audio...", "info");
+
             
             try {
                 await initializeAudioContext();
@@ -1377,36 +1420,51 @@ function saveToLocalStorage(key, value) {
                 const source = audioContext.createBufferSource();
                 source.buffer = audioBuffer;
                 
+                const highPassFilter = audioContext.createBiquadFilter();
+                highPassFilter.type = "highpass";
+                highPassFilter.frequency.setValueAtTime(100, audioContext.currentTime); 
+                highPassFilter.Q.setValueAtTime(0.707, audioContext.currentTime);
+
                 const compressor = audioContext.createDynamicsCompressor();
-                compressor.threshold.setValueAtTime(-30, audioContext.currentTime);
-                compressor.knee.setValueAtTime(40, audioContext.currentTime);
-                compressor.ratio.setValueAtTime(12, audioContext.currentTime);
-                compressor.attack.setValueAtTime(0.005, audioContext.currentTime);
-                compressor.release.setValueAtTime(0.25, audioContext.currentTime);
+                compressor.threshold.setValueAtTime(-20, audioContext.currentTime); 
+                compressor.knee.setValueAtTime(30, audioContext.currentTime);
+                compressor.ratio.setValueAtTime(8, audioContext.currentTime); 
+                compressor.attack.setValueAtTime(0.003, audioContext.currentTime); 
+                compressor.release.setValueAtTime(0.5, audioContext.currentTime);
                 
-                source.connect(compressor);
-                compressor.connect(audioContext.destination);
+                const outputGain = audioContext.createGain();
+                outputGain.gain.value = 1.5; 
+
+                source.connect(highPassFilter);
+                highPassFilter.connect(compressor);
+                compressor.connect(outputGain);
+                outputGain.connect(audioContext.destination);
                 
                 source.start(0);
-                showNotification("An tace sauti cikin nasara! Za'a kunna shi.", "success");
-                
-                source.onended = () => {
-                    source.disconnect();
-                    compressor.disconnect();
+                showNotification("Audio processed successfully! It will now play.", "success");
+
+source.onended = () => {
+    source.disconnect();
+    highPassFilter.disconnect();
+    compressor.disconnect();
+    outputGain.disconnect();
+    showNotification("Playback of the processed audio has finished.", "info");
+
                 };
+
             } catch (error) {
                 showNotification(`Kuskure wajen sarrafa audio: ${error.message}`, "error");
             }
         });
     }
-
+    
     if (connectMicBtn) {
         connectMicBtn.addEventListener('click', async () => {
             await getAvailableMicrophones();
             micConnectModal.style.display = 'flex';
         });
     }
-
+    
     async function getAvailableMicrophones() {
         try {
             await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -1420,6 +1478,7 @@ function saveToLocalStorage(key, value) {
                     const option = document.createElement('option');
                     option.value = device.deviceId;
                     option.textContent = device.label || `Microphone ${device.deviceId.substring(0, 8)}`;
+                    option.selected = getFromLocalStorage('tauraronWasa_preferredMicId') === device.deviceId;
                     microphoneSelect.appendChild(option);
                 });
                 
@@ -1430,49 +1489,54 @@ function saveToLocalStorage(key, value) {
                 selectMicBtn.disabled = false;
             } else {
                 const option = document.createElement('option');
-                option.textContent = 'Babu microphone da aka samu';
+                option.textContent = 'Dont microphone get it';
                 option.value = '';
                 microphoneSelect.appendChild(option);
                 selectMicBtn.disabled = true;
             }
         } catch (err) {
-            showNotification("Kuskure: Ba a iya samun na'urorin microphone ba. Ka ba da izini.", "error");
+           showNotification("Error: Unable to access microphone devices. Please grant permission.", "error");
             selectMicBtn.disabled = true;
         }
     }
-
+    
     if (selectMicBtn) {
         selectMicBtn.addEventListener('click', () => {
             const selectedMicId = microphoneSelect.value;
             if (selectedMicId) {
                 saveToLocalStorage('tauraronWasa_preferredMicId', selectedMicId);
-                showNotification("An zaɓi microphone cikin nasara! Za'a yi amfani da shi nan gaba.", "success");
-                closeModal('micConnectModal');
-            } else {
-                showNotification("Don Allah zaɓi microphone.", "error");
+               showNotification("Microphone selected successfully! It will be used from now on.", "success");
+closeModal('micConnectModal');
+} else {
+    showNotification("Please select a microphone.", "error");
             }
         });
     }
-
+    
     if (volumeControlBtn) {
         volumeControlBtn.addEventListener('click', () => {
-            if (volumeSlider) volumeSlider.value = recordedAudio.volume;
+            const currentVolume = recordedAudio.volume;
+            if (volumeSlider) volumeSlider.value = currentVolume;
             if (volumeModal) volumeModal.style.display = 'flex';
         });
     }
     
     if (saveVolumeBtn) {
         saveVolumeBtn.addEventListener('click', () => {
-            recordedAudio.volume = parseFloat(volumeSlider.value);
-            saveToLocalStorage('tauraronWasa_volume', recordedAudio.volume);
-            showNotification("An ajiye saitunan volume.", "success");
+            let newVolume = parseFloat(volumeSlider.value);
+            newVolume = Math.min(1.0, Math.max(0, newVolume)); 
+            recordedAudio.volume = newVolume;
+            saveToLocalStorage('tauraronWasa_volume', newVolume);
+            showNotification("success setting volume.", "success");
             closeModal('volumeModal');
         });
     }
     
     if (volumeSlider) {
         volumeSlider.addEventListener('input', () => {
-            if(recordedAudio) recordedAudio.volume = parseFloat(volumeSlider.value);
+            let tempVolume = parseFloat(volumeSlider.value);
+            tempVolume = Math.min(1.0, Math.max(0, tempVolume)); 
+            if(recordedAudio) recordedAudio.volume = tempVolume;
         });
     }
     
@@ -1487,7 +1551,7 @@ function saveToLocalStorage(key, value) {
         saveSpeedBtn.addEventListener('click', () => {
             recordedAudio.playbackRate = parseFloat(speedSlider.value);
             saveToLocalStorage('tauraronWasa_speed', recordedAudio.playbackRate);
-            showNotification("An ajiye saitunan saurin sauti.", "success");
+            showNotification("Audio speed settings have been saved.", "success");
             closeModal('speedModal');
         });
     }
@@ -1497,17 +1561,21 @@ function saveToLocalStorage(key, value) {
              if(recordedAudio) recordedAudio.playbackRate = parseFloat(speedSlider.value);
         });
     }
-
+    
     if (downloadAudioBtn) {
         downloadAudioBtn.addEventListener('click', () => {
-            if (!recordedBlob) {
-                showNotification("Babu sauti da aka ɗauka don zazzagewa.", "error");
+            if (!recordedBlob || recordedBlob.size <= 1024) {
+                showNotification("No valid recorded audio available for download.", "error");
                 return;
             }
             
-            const fileExtension = recordedBlob.type.includes('mp4') || recordedBlob.type.includes('m4a') ? '.m4a' :
-                                  recordedBlob.type.includes('mpeg') ? '.mp3' : '.webm';
-            
+            let fileExtension = '.webm'; 
+            if (recordedBlob.type.includes('mp4') || recordedBlob.type.includes('m4a')) {
+                 fileExtension = '.m4a';
+            } else if (recordedBlob.type.includes('mpeg')) {
+                 fileExtension = '.mp3';
+            }
+
             const now = new Date();
             const defaultFileName = `TauraronWasa_Audio_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}_${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${fileExtension}`;
             
@@ -1515,15 +1583,19 @@ function saveToLocalStorage(key, value) {
             if (downloadModal) downloadModal.style.display = 'flex';
         });
     }
-
+    
     if (confirmDownloadBtn) {
         confirmDownloadBtn.addEventListener('click', () => {
-            if (recordedBlob) {
+            if (recordedBlob && recordedBlob.size > 1024) {
                 let fileName = downloadFileNameInput.value.trim();
                 
-                const fileExtension = recordedBlob.type.includes('mp4') || recordedBlob.type.includes('m4a') ? '.m4a' :
-                                      recordedBlob.type.includes('mpeg') ? '.mp3' : '.webm';
-                
+                let fileExtension = '.webm';
+                 if (recordedBlob.type.includes('mp4') || recordedBlob.type.includes('m4a')) {
+                     fileExtension = '.m4a';
+                } else if (recordedBlob.type.includes('mpeg')) {
+                     fileExtension = '.mp3';
+                }
+
                 if (!fileName.toLowerCase().endsWith(fileExtension)) {
                      const extIndex = fileName.lastIndexOf('.');
                      if (extIndex > 0) fileName = fileName.substring(0, extIndex);
@@ -1544,9 +1616,9 @@ function saveToLocalStorage(key, value) {
             }
         });
     }
-
+    
     function savePersistentData() {
-        if (recordedBlob) {
+        if (recordedBlob && recordedBlob.size > 1024) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 if (reader.result.length < 5 * 1024 * 1024) {
@@ -1561,23 +1633,34 @@ function saveToLocalStorage(key, value) {
         }
         
         if (reportTextarea) saveToLocalStorage('tauraronWasa_reportText', reportTextarea.value);
-        
+      
         const serializableUploadedItems = uploadedAudioItems.map(item => ({
             dataUrl: item.dataUrl,
-            name: item.name
+            name: item.name,
+            playbackTime: item.playbackTime || 0
         }));
         saveToLocalStorage('tauraronWasa_uploadedAudioItems', serializableUploadedItems);
     }
-
+    
     async function loadPersistentData() {
+       
         const storedAudioDataUrl = getFromLocalStorage('tauraronWasa_recordedAudio');
         if (storedAudioDataUrl) {
             try {
                 const response = await fetch(storedAudioDataUrl);
                 recordedBlob = await response.blob();
-                recordedAudio.src = URL.createObjectURL(recordedBlob);
-                playbackToggleBtn.classList.remove('disabled');
-                playbackToggleBtn.disabled = false;
+                
+                if (recordedBlob.size > 1024) {
+                    recordedAudio.src = URL.createObjectURL(recordedBlob);
+                    playbackToggleBtn.classList.remove('disabled');
+                    playbackToggleBtn.disabled = false;
+                } else {
+                     recordedBlob = null;
+                     deleteFromLocalStorage('tauraronWasa_recordedAudio');
+                     playbackToggleBtn.classList.add('disabled');
+                     playbackToggleBtn.disabled = true;
+                }
+
             } catch (e) {
                 deleteFromLocalStorage('tauraronWasa_recordedAudio');
             }
@@ -1593,11 +1676,23 @@ function saveToLocalStorage(key, value) {
         
         const storedUploadedAudioData = getFromLocalStorage('tauraronWasa_uploadedAudioItems');
         if (storedUploadedAudioData) {
+          
             uploadedAudioItems = await Promise.all(storedUploadedAudioData.map(async item => {
                 try {
                     const response = await fetch(item.dataUrl);
                     const blob = await response.blob();
-                    return { ...item, blob };
+                    const arrayBuffer = await blob.arrayBuffer();
+                    
+                    await initializeAudioContext();
+                    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+                    return { 
+                        ...item, 
+                        blob, 
+                        buffer: audioBuffer, 
+                        playbackTime: item.playbackTime || 0, 
+                        isPlaying: false 
+                    };
                 } catch (e) {
                     return null;
                 }
@@ -1606,20 +1701,20 @@ function saveToLocalStorage(key, value) {
         }
         
         const storedVolume = getFromLocalStorage('tauraronWasa_volume');
-        if (storedVolume !== null) recordedAudio.volume = storedVolume;
+        if (storedVolume !== null) recordedAudio.volume = Math.min(1.0, parseFloat(storedVolume));
         
         const storedSpeed = getFromLocalStorage('tauraronWasa_speed');
         if (storedSpeed !== null) recordedAudio.playbackRate = storedSpeed;
     }
-
+    
     if (reportTextarea) reportTextarea.addEventListener('input', savePersistentData);
     
     setInterval(savePersistentData, 30000);
     window.addEventListener('beforeunload', savePersistentData);
-
+    
     if (updateButton) {
         updateButton.addEventListener('click', () => {
-            if (confirm("Kana da tabbacin kana son share dukkan bayanan aiki (recording, uploaded audio, rubutu)? Za'a share su har abada!")) {
+            if (confirm("Are you sure you want to delete all work data (recordings, uploaded audio, text)? This will be permanently deleted!")) {
                 deleteFromLocalStorage('tauraronWasa_recordedAudio');
                 deleteFromLocalStorage('tauraronWasa_reportText');
                 deleteFromLocalStorage('tauraronWasa_uploadedAudioItems');
@@ -1628,6 +1723,7 @@ function saveToLocalStorage(key, value) {
                 if(recordedAudio) recordedAudio.src = '';
                 if(reportTextarea) reportTextarea.value = '';
                 uploadedAudioItems = [];
+                stopCurrentUploadedAudio(); 
                 renderUploadedAudio();
                 
                 isPlaying = false;
@@ -1637,23 +1733,23 @@ function saveToLocalStorage(key, value) {
                 stopFinalRecording();
                 resetRecordingState();
                 
-                showNotification("An share dukkan bayanan aiki cikin nasara!", "success");
+                showNotification("All work data has been successfully deleted!", "success");
             }
         });
     }
-
+    
     document.querySelectorAll('.modal .close-button').forEach(button => {
         button.addEventListener('click', (e) => {
             e.target.closest('.modal').style.display = 'none';
         });
     });
-
+    
     if (closeNotificationBtn) {
         closeNotificationBtn.addEventListener('click', () => {
             pushNotification.style.display = 'none';
         });
     }
-
+    
     if (audioVisualizerCanvas) {
         const parent = audioVisualizerCanvas.parentElement;
         audioVisualizerCanvas.width = parent.clientWidth;
@@ -1667,16 +1763,15 @@ function saveToLocalStorage(key, value) {
             audioVisualizerCanvas.width = parent.clientWidth;
             audioVisualizerCanvas.height = parent.clientHeight;
              if (canvasCtx) {
-                canvasCtx.fillStyle = '#212f3c';
-                canvasCtx.fillRect(0, 0, audioVisualizerCanvas.width, audioVisualizerCanvas.height);
+                 canvasCtx.fillStyle = '#212f3c';
+                 canvasCtx.fillRect(0, 0, audioVisualizerCanvas.width, audioVisualizerCanvas.height);
             }
         }
     });
-
-    initializeUser();
     
+    initializeUser();
 });
-    </script>
-
+</script>
+    
 </body>
 </html>
